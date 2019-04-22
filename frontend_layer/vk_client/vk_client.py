@@ -17,10 +17,35 @@ message_tree_template = {
     'function': None,
     'next':{
         'tasks':{
-            'answer':'Table of current tasks:',
-            'wrong':'Wrong command. Write "help" to get information',
+            'answer':'What do you want to do?\n\
+                    Create - create new task\n\
+                    Table - show current tasks\n\
+                    Delete [taskid] - delete task with taskid',
+            'wrong':'What do you want to do?\n\
+                    Create - create new task\n\
+                    Table - show current tasks\n\
+                    Delete [taskid] - delete task with taskid',
             'function':'func',
-            'next':None
+            'next':{
+                'create':{
+                    'answer':'Not implemented yet',
+                    'wrong':None,
+                    'function': None,
+                    'next':None
+                    },
+                'delete':{
+                    'answer':'Not implemented yet',
+                    'wrong':None,
+                    'function': None,
+                    'next':None
+                    },
+                'table':{
+                    'answer':'Not implemented yet',
+                    'wrong':None,
+                    'function': None,
+                    'next':None
+                    }
+                }
             },
         'write':{
             'answer':'Task added.',
@@ -37,8 +62,14 @@ message_tree_template = {
                 'answer':'Image is being uploaded... ',
                 'function':'upload',
                 'next':None
+                    }
                 }
-            }
+            },
+        'hello':{
+            'answer':None,
+            'wrong':None,
+            'function':'hello',
+            'next':None
         }
     }
 }
@@ -49,7 +80,7 @@ no_condition_answers_template = {
             'function':'back',
             },
     'about':{
-            'answer':'ans1',
+            'answer':None,
             'function':'about',
             },
     'help':{
@@ -100,6 +131,10 @@ class MainDialog():
         self.set_tree(self.initial_tree)
         self.send_text(self.current_tree['answer'])
 
+    def hello(self,msg):
+        hello_list = ['Hello','Aloha','Privet','Bonjour']
+        self.send_text(hello_list[randint(0,len(hello_list)-1)])
+
     def write(self,msg):
         self.send_text('I am so sad about this, but the server does not exist yet,\n\
             so where is no place I can send your text(((')        
@@ -140,10 +175,10 @@ class MainDialog():
         else:
             if msg_cmd in self.current_tree['next']:
                 self.set_tree(self.current_tree['next'][msg_cmd])
-                if self.current_tree['answer'] != None:
-                    self.send_text(self.current_tree['answer'])
                 if self.current_tree['function'] != None:
                     self.handle_function(self.current_tree['function'],msg)
+                if self.current_tree['answer'] != None:
+                    self.send_text(self.current_tree['answer'])
                 if self.current_tree['next'] == None:
                     self.set_tree(self.initial_tree)
                     self.send_text(self.current_tree['answer'])
@@ -152,7 +187,6 @@ class MainDialog():
                     self.send_text(self.current_tree['wrong'])    
                 else:
                     self.send_text(wrong_default)    
-
 
 if __name__ == '__main__':
     
@@ -165,6 +199,7 @@ if __name__ == '__main__':
     longpoll = VkLongPoll(vk_session)
     log.info('Longpoll created. Listening...')
     dialog_dict = {}
+    
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW:
             if event.to_me:
