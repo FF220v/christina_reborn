@@ -3,7 +3,6 @@ import processing.data.*;
 import processing.event.*; 
 import processing.opengl.*; 
 
-import processing.serial.*; 
 import geomerative.*; 
 
 import java.util.HashMap; 
@@ -16,7 +15,6 @@ import java.io.OutputStream;
 import java.io.IOException; 
 
 public class svg_to_points extends PApplet {
-
 
 
 
@@ -34,8 +32,6 @@ public void setup(){
   float angle_tolerance = settings.getFloat("angle_tolerance");
   float center_x = width/2;
   float center_y = height/2;
-  
-  
   RG.init(this);
   RG.ignoreStyles(ignoringStyles); 
   RG.setPolygonizerAngle(angle_tolerance);
@@ -88,7 +84,8 @@ public void setup(){
   println("results saved");
 }
 
-public void draw(){
+/*
+void draw(){
   for(int i = 0; i<points.length; i++){
   if (points[i] != null) {
       beginShape();
@@ -99,7 +96,7 @@ public void draw(){
     }
   }
 }
-  public void settings() {  size(200, 400); }
+*/
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "svg_to_points" };
     if (passedArgs != null) {

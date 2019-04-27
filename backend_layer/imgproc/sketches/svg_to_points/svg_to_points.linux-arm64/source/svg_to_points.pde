@@ -1,4 +1,3 @@
-import processing.serial.*;
 import geomerative.*;
 
 JSONObject settings;
@@ -15,8 +14,6 @@ void setup(){
   float angle_tolerance = settings.getFloat("angle_tolerance");
   float center_x = width/2;
   float center_y = height/2;
-  
-  size(200, 400);
   RG.init(this);
   RG.ignoreStyles(ignoringStyles); 
   RG.setPolygonizerAngle(angle_tolerance);
@@ -69,6 +66,7 @@ void setup(){
   println("results saved");
 }
 
+/*
 void draw(){
   for(int i = 0; i<points.length; i++){
   if (points[i] != null) {
@@ -80,3 +78,4 @@ void draw(){
     }
   }
 }
+*/
