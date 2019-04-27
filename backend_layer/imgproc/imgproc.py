@@ -1,11 +1,13 @@
 from six import StringIO
 import xml.etree.ElementTree as etree
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-import numpy as np
+from matplotlib.transforms import TransformedBbox
 import requests
 from svgpath2mpl import parse_path
-from matplotlib.path import Path
+import subprocess
+
+def svg2paths(file_name):
+    p=subprocess.call(['/usr/bin/inkscape','file1.svg','file2.pdf'])
 
 def svg2points(svg):
     tree = etree.parse(StringIO(r.text))
@@ -21,18 +23,18 @@ def svg2points(svg):
     return poly
 
 if __name__ == "__main__":
-    r = requests.get('https://psv4.userapi.com/c834500/u94734732/docs/d6/d05c77fd3769/yoba.svg?extra=9T6ccsa2hadnVedfX9ObhD7F-gaNOuw0DYqnaZN_Krtqgue2OM5XgeVjXwLEGot0un62GsNjqzqCISfpcaVpyU-EJq9_YfnhQ-pz3PlUPdsLJ9IlMY86R70tgR1bnc2dqqa69o5YCpTjCGRTFYwA&dl=1')
+    r = requests.get('https://psv4.userapi.com/c848228/u94734732/docs/d16/9699224cd9d3/drawing-1.svg?extra=Kvk60XH5r-RCVwYEuIrl9rCUj0AlCVM3IzpR1JxgjjSZvve6uLJMJ5BVDQZhtU6xLTDUbVkaziDTIesS7-NJsnVw42dAk3JUy--__OuzdhjmDM7Er2G9tpS4OIhyPVjIpSa7z-0tFFZX15cJBp7V&dl=1')
 
     poly = svg2points(r)
 
     fig = plt.figure(figsize=(10,10))
-    print(poly)
-    print(len(poly))
+    points = 0
     for p in poly:
-        print(len(p))
         for k in p:
-            print(len(k))
             for y in k:
+                points += 1
+                print(points) 
                 plt.plot(y[0],y[1], marker = 'o')
+    print('Points total: {p}'.format(p=points))
     plt.show()
     
