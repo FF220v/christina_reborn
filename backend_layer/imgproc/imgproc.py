@@ -19,7 +19,7 @@ def svg_to_points(settings: dict):
         json.dump(settings, file)
     p=subprocess.call(['bash', 'svg_to_points/svg_to_points.linux-arm64/svg_to_points'])
     
-    with open('svg_to_points/svg_to_points.linux-arm64/data/result.json','w') as file:
+    with open('svg_to_points/svg_to_points.linux-arm64/data/result.json') as file:
         print(json.load(file))
 
 if __name__ == "__main__":
