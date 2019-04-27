@@ -64,6 +64,7 @@ void setup(){
   packed_result.setString("units", "10^-7 meters");
   saveJSONObject(packed_result, "data/result.json", "compact");
   println("results saved");
+  exit();
 }
 
 /*
