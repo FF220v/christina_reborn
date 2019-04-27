@@ -1,7 +1,1 @@
-{
-    "max_width":  1500,
-    "max_height": 1500,    
-    "style": "magnificent",
-    "angle_tolerance": 0,
-    "position":"center"
-}
+{"style": "magnificent", "make_paths": true, "max_height": 100, "path": "/backend_layer/imgproc/test.svg", "max_width": 100, "position": "center", "angle_tolerance": 0}
