@@ -1,6 +1,6 @@
 {
-    "max_width":  1500,
-    "max_height": 1500,    
+    "max_width":  2000,
+    "max_height": 2000,    
     "style": "magnificent",
     "angle_tolerance": 0,
     "position":"center"

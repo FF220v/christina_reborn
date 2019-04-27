@@ -7,7 +7,10 @@ RShape grp;
 RPoint[][] points;
 boolean ignoringStyles = false;
 
+
 void setup(){
+  println("loading settings..."); 
+  surface.setVisible(false);
   settings = loadJSONObject("settings.json");
   float area_width =  settings.getInt("max_width");
   float area_height = settings.getInt("max_height");
@@ -40,11 +43,14 @@ void setup(){
   }
   print("scale factor: ");
   println(scale_factor);
-  println("Getting points...");
+  println("getting points...");
   points = grp.getPointsInPaths(); 
-  print("Amount of contours: ");
+  print("amount of contours: ");
   println(points.length);
-  println("Saving results");
+  print("amount of points: ");
+  int num_of_points = calculate_num_of_points();
+  println(num_of_points);
+  println("saving results...");
   packed_result = settings;
   JSONArray all_curves;
   all_curves = new JSONArray();
@@ -62,9 +68,21 @@ void setup(){
   }
   packed_result.setJSONArray("data", all_curves);
   packed_result.setString("units", "10^-7 meters");
+  packed_result.setInt("num_of_contours", points.length);
+  packed_result.setInt("num_of_points", num_of_points);
   saveJSONObject(packed_result, "data/result.json", "compact");
   println("results saved");
   exit();
+}
+
+int calculate_num_of_points(){
+  int counter=0;
+  for(int i = 0; i<points.length; i++){
+    for(int j = 0; j<points[i].length; j++){
+      counter++;  
+    }  
+  }
+  return counter;
 }
 
 /*
